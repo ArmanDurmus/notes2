@@ -30,66 +30,64 @@ class _RegisterViewState extends State<RegisterView> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Create Account'),
-        ),
-        body: FutureBuilder(builder: (context, snapshot) {
-          switch (snapshot.connectionState) {
-            case ConnectionState.done:
-              return Column(
-                children: [
-                  TextField(
-                    controller: _email,
-                    enableSuggestions: false,
-                    autocorrect: false,
-                    keyboardType: TextInputType.emailAddress,
-                    decoration: const InputDecoration(
-                      hintText: 'E-mail',
-                    ),
-                  ),
-                  TextField(
-                    controller: _password,
-                    obscureText: true,
-                    enableSuggestions: false,
-                    autocorrect: false,
-                    decoration: const InputDecoration(
-                      hintText: 'Password',
-                    ),
-                  ),
-                  TextButton(
-                    onPressed: () async {
-                      await Firebase.initializeApp(
-                        options: DefaultFirebaseOptions.currentPlatform,
-                      );
-                      final email = _email.text;
-                      final password = _password.text;
-                      try {
-                        final UserCredential = await FirebaseAuth.instance
-                            .createUserWithEmailAndPassword(
-                                email: email, password: password);
-                        print(UserCredential);
-                      } on FirebaseAuthException catch (e) {
-                        if (e.code == 'weak-password') {
-                          print('Weak Password');
-                        } else if (e.code == 'email-already-in-use') {
-                          print('This account already exists');
-                        } else if (e.code == 'invalid-email') {
-                          print('Invalid e-mail');
-                        } else {
-                          print(e.code);
-                        }
-                      }
-                    },
-                    child: const Text('Create Account'),
-                  ),
-                ],
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Create an Account'),
+      ),
+      body: Column(
+        children: [
+          TextField(
+            controller: _email,
+            enableSuggestions: false,
+            autocorrect: false,
+            keyboardType: TextInputType.emailAddress,
+            decoration: const InputDecoration(
+              hintText: 'E-mail',
+            ),
+          ),
+          TextField(
+            controller: _password,
+            obscureText: true,
+            enableSuggestions: false,
+            autocorrect: false,
+            decoration: const InputDecoration(
+              hintText: 'Password',
+            ),
+          ),
+          TextButton(
+            onPressed: () async {
+              await Firebase.initializeApp(
+                options: DefaultFirebaseOptions.currentPlatform,
               );
-            default:
-              return const Text('Loading...');
-          }
-        }),
+              final email = _email.text;
+              final password = _password.text;
+              try {
+                final UserCredential = await FirebaseAuth.instance
+                    .createUserWithEmailAndPassword(
+                        email: email, password: password);
+                print(UserCredential);
+              } on FirebaseAuthException catch (e) {
+                if (e.code == 'weak-password') {
+                  print('Weak Password');
+                } else if (e.code == 'email-already-in-use') {
+                  print('This account already exists');
+                } else if (e.code == 'invalid-email') {
+                  print('Invalid e-mail');
+                } else {
+                  print(e.code);
+                }
+              }
+            },
+            child: const Text('Create an Account'),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.of(context)
+                  .pushNamedAndRemoveUntil('/login/', (route) => false);
+            },
+            child: const Text('Already have an account? Login here'),
+          )
+        ],
       ),
     );
   }
