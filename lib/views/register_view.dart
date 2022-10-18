@@ -59,6 +59,8 @@ class _RegisterViewState extends State<RegisterView> {
               await Firebase.initializeApp(
                 options: DefaultFirebaseOptions.currentPlatform,
               );
+              Navigator.of(context)
+                  .pushNamedAndRemoveUntil('/login/', (route) => false);
               final email = _email.text;
               final password = _password.text;
               try {
