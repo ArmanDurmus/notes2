@@ -28,7 +28,7 @@ class _VerifyEmailViewState extends State<VerifyEmailView> {
           TextButton(
             onPressed: () {
               Navigator.of(context)
-                  .pushNamedAndRemoveUntil('/login/', (route) => false);
+                  .pushNamedAndRemoveUntil('/notes/', (route) => false);
             },
             child: const Text('Return to Login Page'),
           )
