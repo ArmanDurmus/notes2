@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:notes/constants/routs.dart';
 import 'package:notes/firebase_options.dart';
 import 'dart:developer' as devtools show log;
 
@@ -60,8 +61,6 @@ class _RegisterViewState extends State<RegisterView> {
               await Firebase.initializeApp(
                 options: DefaultFirebaseOptions.currentPlatform,
               );
-              Navigator.of(context)
-                  .pushNamedAndRemoveUntil('/login/', (route) => false);
               final email = _email.text;
               final password = _password.text;
               try {
@@ -86,7 +85,7 @@ class _RegisterViewState extends State<RegisterView> {
           TextButton(
             onPressed: () {
               Navigator.of(context)
-                  .pushNamedAndRemoveUntil('/login/', (route) => false);
+                  .pushNamedAndRemoveUntil(loginRoute, (route) => false);
             },
             child: const Text('Already have an account? Login here'),
           )
