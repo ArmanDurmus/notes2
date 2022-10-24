@@ -12,10 +12,11 @@ Future<void> showErrorDialog(
           content: Text(text),
           actions: [
             TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: const Text('OK')),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('OK'),
+            ),
           ]);
     },
   );
