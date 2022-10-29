@@ -30,6 +30,7 @@ class _VerifyEmailViewState extends State<VerifyEmailView> {
           TextButton(
             onPressed: () async {
               await AuthService.firebase().logOut();
+              // ignore: use_build_context_synchronously
               Navigator.pop(context);
             },
             child: const Text('Restart'),
